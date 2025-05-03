@@ -35,7 +35,7 @@ const Navbar = () => {
 			</li>
 			<li>
 				<NavLink
-					to={"/allReviews"}
+					to={"/allBlogs"}
 					style={({ isActive }) => {
 						return {
 							fontWeight: isActive ? "bold" : "",
@@ -44,12 +44,12 @@ const Navbar = () => {
 						};
 					}}
 				>
-					All Reviews
+					All Blogs
 				</NavLink>
 			</li>
 			<li>
 				<NavLink
-					to={"/addReview"}
+					to={"/addBlogs"}
 					style={({ isActive }) => {
 						return {
 							fontWeight: isActive ? "bold" : "",
@@ -58,12 +58,12 @@ const Navbar = () => {
 						};
 					}}
 				>
-					Add Review
+					Add Blogs
 				</NavLink>
 			</li>
 			<li>
 				<NavLink
-					to={"/myReview"}
+					to={"/featuredBlogs"}
 					style={({ isActive }) => {
 						return {
 							fontWeight: isActive ? "bold" : "",
@@ -72,12 +72,26 @@ const Navbar = () => {
 						};
 					}}
 				>
-					My Reviews
+					Featured Blogs
 				</NavLink>
 			</li>
 			<li>
 				<NavLink
-					to={"/watchList"}
+					to={"/myBlogs"}
+					style={({ isActive }) => {
+						return {
+							fontWeight: isActive ? "bold" : "",
+							color: isActive ? "red" : "",
+							marginRight: "1rem",
+						};
+					}}
+				>
+					My Blogs
+				</NavLink>
+			</li>
+			<li>
+				<NavLink
+					to={"/wishList"}
 					style={({ isActive }) => {
 						return {
 							fontWeight: isActive ? "bold" : "",
@@ -86,7 +100,7 @@ const Navbar = () => {
 						};
 					}}
 				>
-					My Watchlist
+					Wishlist
 				</NavLink>
 			</li>
 		</>

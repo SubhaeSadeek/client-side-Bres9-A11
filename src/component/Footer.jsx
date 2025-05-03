@@ -1,22 +1,94 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
 	return (
 		<footer className="footer footer-horizontal footer-center bg-black text-white rounded p-10">
-			<nav className="grid grid-flow-col gap-4">
-				<Link to={"/"} className="link link-hover">
-					Home
-				</Link>
-				<Link to={"/allReviews"} className="link link-hover">
-					All Review
-				</Link>
-				<Link to={"/addReview"} className="link link-hover">
-					Add Review
-				</Link>
-				<Link to={"/myReview"} className="link link-hover">
-					My Review
-				</Link>
-			</nav>
+			<ul className="grid grid-flow-col gap-4">
+				<li>
+					<NavLink
+						to={"/"}
+						style={({ isActive }) => {
+							return {
+								fontWeight: isActive ? "bold" : "",
+								color: isActive ? "red" : "",
+								marginRight: "1rem",
+							};
+						}}
+					>
+						Home
+					</NavLink>
+				</li>
+				<li>
+					<NavLink
+						to={"/allBlogs"}
+						style={({ isActive }) => {
+							return {
+								fontWeight: isActive ? "bold" : "",
+								color: isActive ? "red" : "",
+								marginRight: "1rem",
+							};
+						}}
+					>
+						All Blogs
+					</NavLink>
+				</li>
+				<li>
+					<NavLink
+						to={"/addBlogs"}
+						style={({ isActive }) => {
+							return {
+								fontWeight: isActive ? "bold" : "",
+								color: isActive ? "red" : "",
+								marginRight: "1rem",
+							};
+						}}
+					>
+						Add Blogs
+					</NavLink>
+				</li>
+				<li>
+					<NavLink
+						to={"/featuredBlogs"}
+						style={({ isActive }) => {
+							return {
+								fontWeight: isActive ? "bold" : "",
+								color: isActive ? "red" : "",
+								marginRight: "1rem",
+							};
+						}}
+					>
+						Featured Blogs
+					</NavLink>
+				</li>
+				<li>
+					<NavLink
+						to={"/myBlogs"}
+						style={({ isActive }) => {
+							return {
+								fontWeight: isActive ? "bold" : "",
+								color: isActive ? "red" : "",
+								marginRight: "1rem",
+							};
+						}}
+					>
+						My Blogs
+					</NavLink>
+				</li>
+				<li>
+					<NavLink
+						to={"/wishList"}
+						style={({ isActive }) => {
+							return {
+								fontWeight: isActive ? "bold" : "",
+								color: isActive ? "red" : "",
+								marginRight: "3rem",
+							};
+						}}
+					>
+						Wishlist
+					</NavLink>
+				</li>
+			</ul>
 			<nav>
 				<div className="grid grid-flow-col gap-4">
 					<a href="https://x.com" target="_blank">
@@ -56,8 +128,8 @@ const Footer = () => {
 			</nav>
 			<aside>
 				<p>
-					Copyright © {new Date().getFullYear()} - All right reserved by Chill
-					Gamers
+					Copyright © {new Date().getFullYear()} - All right reserved by Hikma |
+					Your Trusted Blogsphere
 				</p>
 			</aside>
 		</footer>

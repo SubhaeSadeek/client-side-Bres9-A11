@@ -22,7 +22,7 @@ const ToggleModeTheme = () => {
 	return (
 		<label className="flex items-center gap-2 cursor-pointer">
 			<span className={`text-xs ${isDark ? "bg-indigo-500 font-bold" : ""}`}>
-				{isDark ? "Dark" : "Light"}
+				{isDark ? "Night" : "Day"}
 			</span>
 			<input
 				type="checkbox"
