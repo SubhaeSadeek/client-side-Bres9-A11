@@ -5,7 +5,7 @@ import Navbar from "../component/Navbar";
 
 const Layout = () => {
 	return (
-		<div className="bg-[#F6F6F6] container mx-auto">
+		<div className="container mx-auto">
 			<div>
 				<Toaster></Toaster>
 			</div>

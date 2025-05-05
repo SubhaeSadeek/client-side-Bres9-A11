@@ -26,6 +26,7 @@ const Navbar = () => {
 						return {
 							fontWeight: isActive ? "bold" : "",
 							color: isActive ? "red" : "",
+							textDecoration: isActive ? "underline" : "",
 							marginRight: "1rem",
 						};
 					}}
@@ -40,6 +41,7 @@ const Navbar = () => {
 						return {
 							fontWeight: isActive ? "bold" : "",
 							color: isActive ? "red" : "",
+							textDecoration: isActive ? "underline" : "",
 							marginRight: "1rem",
 						};
 					}}
@@ -49,25 +51,12 @@ const Navbar = () => {
 			</li>
 			<li>
 				<NavLink
-					to={"/addBlogs"}
-					style={({ isActive }) => {
-						return {
-							fontWeight: isActive ? "bold" : "",
-							color: isActive ? "red" : "",
-							marginRight: "1rem",
-						};
-					}}
-				>
-					Add Blogs
-				</NavLink>
-			</li>
-			<li>
-				<NavLink
 					to={"/featuredBlogs"}
 					style={({ isActive }) => {
 						return {
 							fontWeight: isActive ? "bold" : "",
 							color: isActive ? "red" : "",
+							textDecoration: isActive ? "underline" : "",
 							marginRight: "1rem",
 						};
 					}}
@@ -77,11 +66,28 @@ const Navbar = () => {
 			</li>
 			<li>
 				<NavLink
+					to={"/addBlogs"}
+					style={({ isActive }) => {
+						return {
+							fontWeight: isActive ? "bold" : "",
+							color: isActive ? "red" : "",
+							textDecoration: isActive ? "underline" : "",
+							marginRight: "1rem",
+						};
+					}}
+				>
+					Add Blogs
+				</NavLink>
+			</li>
+
+			<li>
+				<NavLink
 					to={"/myBlogs"}
 					style={({ isActive }) => {
 						return {
 							fontWeight: isActive ? "bold" : "",
 							color: isActive ? "red" : "",
+							textDecoration: isActive ? "underline" : "",
 							marginRight: "1rem",
 						};
 					}}
@@ -96,6 +102,7 @@ const Navbar = () => {
 						return {
 							fontWeight: isActive ? "bold" : "",
 							color: isActive ? "red" : "",
+							textDecoration: isActive ? "underline" : "",
 							marginRight: "3rem",
 						};
 					}}
@@ -151,14 +158,14 @@ const Navbar = () => {
 
 						{/* *************** */}
 
-						<div className="tooltip tooltip-bottom">
+						<div className="tooltip tooltip-bottom tooltip-accent">
 							<div className="tooltip-content">
-								<div className="animate-bounce text-orange-400 -rotate-5 text-lg font-semibold">
+								<div className="text-sm text-fuchsia-800">
 									{user.displayName}
 								</div>
 							</div>
 							<div className="avatar">
-								<div className="w-10 rounded-full">
+								<div className="w-10 rounded-full border-2 border-accent">
 									<img src={user?.photoURL} />
 								</div>
 							</div>

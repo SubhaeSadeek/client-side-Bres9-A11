@@ -5,8 +5,11 @@ import AddBlog from "../pages/AddBlog";
 import AllBlogs from "../pages/AllBlogs";
 import FeaturedBlog from "../pages/FeaturedBlog";
 import Home from "../pages/Home";
+import Login from "../pages/Login";
 import MyBlogs from "../pages/MyBlogs";
+import Register from "../pages/Register";
 import WishList from "../pages/WishList";
+import PrivateRoute from "./PrivateRoute";
 
 const Routers = createBrowserRouter([
 	{
@@ -32,11 +35,27 @@ const Routers = createBrowserRouter([
 			},
 			{
 				path: "/myBlogs",
-				element: <MyBlogs></MyBlogs>,
+				element: (
+					<PrivateRoute>
+						<MyBlogs></MyBlogs>
+					</PrivateRoute>
+				),
 			},
 			{
 				path: "/wishList",
-				element: <WishList></WishList>,
+				element: (
+					<PrivateRoute>
+						<WishList></WishList>
+					</PrivateRoute>
+				),
+			},
+			{
+				path: "/login",
+				element: <Login></Login>,
+			},
+			{
+				path: "/register",
+				element: <Register></Register>,
 			},
 		],
 	},
