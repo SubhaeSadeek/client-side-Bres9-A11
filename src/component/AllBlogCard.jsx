@@ -1,9 +1,12 @@
 import { useContext } from "react";
+import { NavLink } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 
 const AllBlogCard = ({ blog, index }) => {
-	const { title, image, shortDescription, category, userName, email } = blog;
+	const { title, image, shortDescription, category, userName, email, _id } =
+		blog;
 	const { user } = useContext(AuthContext);
+
 	return (
 		<div>
 			<div className="hero bg-base-200 my-8">
@@ -20,10 +23,13 @@ const AllBlogCard = ({ blog, index }) => {
 						<p className="">{userName}</p>
 						<p className="">{email}</p>
 						<div className="flex gap-8">
+							<NavLink to={`/blogDetails/${_id}`}>
+								<button className="btn btn-accent">Details</button>
+							</NavLink>
+
 							<button className="btn btn-primary" disabled={!user}>
 								Wishlist
 							</button>
-							<button className="btn btn-accent">Details</button>
 						</div>
 						<div className="flex justify-around bg"></div>
 					</div>

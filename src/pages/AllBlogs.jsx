@@ -15,6 +15,7 @@ const AllBlogs = () => {
 		axios
 			.get(`http://localhost:5001/blogs-by-search?title=${searchByTitleText}`)
 			.then((res) => setSearchedBlogs(res.data));
+		e.target.reset();
 	};
 	const handleSelectByCategory = (e) => {
 		e.preventDefault();
@@ -68,10 +69,10 @@ const AllBlogs = () => {
 				</form>
 			</div>
 			{searchedBlogs.length === 0 ? (
-				<div className="card bg-neutral/50 text-neutral-content mt-32  ">
+				<div className="card bg-fuchsia-200 text-fuchsia-700 mt-32  ">
 					<div className="card-body items-center text-center">
-						<h2 className="card-title">Cookies!</h2>
-						<p>We are using cookies for no reason.</p>
+						<h2 className="card-title">Ooops! Search Produce no Result</h2>
+						<p>Rephrase your search or select option on left</p>
 					</div>
 				</div>
 			) : (

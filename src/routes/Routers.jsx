@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import BlogDetails from "../component/BlogDetails";
 import Error from "../component/Error";
 import Layout from "../layout/Layout";
 import AddBlog from "../pages/AddBlog";
@@ -25,6 +26,12 @@ const Routers = createBrowserRouter([
 				path: "/allBlogs",
 				element: <AllBlogs></AllBlogs>,
 				loader: () => fetch("http://localhost:5001/allBlogs"),
+			},
+			{
+				path: "/blogDetails/:id",
+				element: <BlogDetails></BlogDetails>,
+				loader: ({ params }) =>
+					fetch(`http://localhost:5001/blogDetails/${params.id}`),
 			},
 			{
 				path: "/addBlogs",
