@@ -24,10 +24,15 @@ const Routers = createBrowserRouter([
 			{
 				path: "/allBlogs",
 				element: <AllBlogs></AllBlogs>,
+				loader: () => fetch("http://localhost:5001/allBlogs"),
 			},
 			{
 				path: "/addBlogs",
-				element: <AddBlog></AddBlog>,
+				element: (
+					<PrivateRoute>
+						<AddBlog></AddBlog>
+					</PrivateRoute>
+				),
 			},
 			{
 				path: "/featuredBlogs",
