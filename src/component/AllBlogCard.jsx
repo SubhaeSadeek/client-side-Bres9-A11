@@ -83,7 +83,7 @@ const AllBlogCard = ({ blog, index, wishlistBlog }) => {
 							Blogger: {userName}
 						</div>
 
-						<div className="flex gap-8">
+						<div className="flex gap-2 mt-6">
 							<NavLink to={`/blogDetails/${_id}`}>
 								<button className="btn btn-accent">Details</button>
 							</NavLink>
