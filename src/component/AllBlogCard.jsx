@@ -74,9 +74,15 @@ const AllBlogCard = ({ blog, index, wishlistBlog }) => {
 					<div>
 						<h1 className="text-2xl font-bold text-fuchsia-00">{title}</h1>
 						<p className="">{shortDescription}</p>
-						<p className="">{category}</p>
-						<p className="">{userName}</p>
-						<p className="">{email}</p>
+
+						<div className="badge badge-info mb-1 ml-2">
+							<p className="">Category:</p>
+							{category}
+						</div>
+						<div className="badge badge-success  mb-1 ml-2">
+							Blogger: {userName}
+						</div>
+
 						<div className="flex gap-8">
 							<NavLink to={`/blogDetails/${_id}`}>
 								<button className="btn btn-accent">Details</button>
@@ -95,7 +101,7 @@ const AllBlogCard = ({ blog, index, wishlistBlog }) => {
 							)}
 
 							{wishlistCheck && (
-								<div className="badge badge-secondary">Added to Wishlist</div>
+								<div className="badge bg-black/20">Added to Wishlist</div>
 							)}
 						</div>
 					</div>

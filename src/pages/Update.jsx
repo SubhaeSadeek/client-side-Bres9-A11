@@ -61,7 +61,7 @@ const Update = () => {
 			<h1 className="text-xl font-semibold text-accent bg-amber-800 mt-8 text-center w-1/2 mx-auto rounded-4xl">
 				Update Your Blog
 			</h1>
-			{/* current blkogs preview jin a card */}
+			{/* current blogs preview jin a card */}
 			<div className="card card-dash bg-accent/20  mt-4">
 				<h3 className="font-bold text-center text-fuchsia-900">
 					Your Current Blog Preview
