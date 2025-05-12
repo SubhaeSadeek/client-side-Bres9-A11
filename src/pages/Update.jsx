@@ -1,23 +1,29 @@
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
 import useTitle from "../utils/useTitle";
-const AddBlog = () => {
-	useTitle("Add Blog");
+const Update = () => {
+	useTitle("Update Blog");
 	const { user } = useContext(AuthContext);
+	const currentBlog = useLoaderData();
+
+	const [title, setTitle] = useState(currentBlog.title);
+	const [image, setImage] = useState(currentBlog.image);
+	const [shortDescription, setShortDescription] = useState(
+		currentBlog.shortDescription
+	);
+	const [blogPost, setBlogPost] = useState(currentBlog.blogPost);
+	const [category, setCategory] = useState(currentBlog.category);
+
+	const { _id } = currentBlog;
 	const userName = user.displayName;
 	const email = user.email;
-	const addBlogHandler = (e) => {
+	const updateBlogHandler = (e) => {
 		e.preventDefault();
-		const title = e.target.blogTitle.value;
-		const image = e.target.imageURL.value;
 
-		const category = e.target.category.value;
-		const shortDescription = e.target.shortDescription.value;
-		const blogPost = e.target.blogPost.value;
-
-		const addedBlogPost = {
+		const updatedBlogPost = {
 			title,
 			image,
 			category,
@@ -27,26 +33,20 @@ const AddBlog = () => {
 			email,
 		};
 
-		/* fetch("https://server-side-bres9-a10.onrender.com/addReview", {
-			method: "POST",
-			headers: { "content-type": "application/json" },
-			body: JSON.stringify(addedBlogPost),
-		}) */
 		axios
-			.post("http://localhost:5001/addBlog", addedBlogPost)
-
-			.then((data) => {
-				if (data.data.insertedId) {
+			.patch(`http://localhost:5001/update-blog/${_id}`, updatedBlogPost)
+			.then((res) => {
+				if (res.data.modifiedCount > 0) {
 					Swal.fire({
 						title: "Success!",
-						text: "Your Blog is added successfully",
+						text: "Your Blog has been Updated successfully",
 						icon: "success",
 						confirmButtonText: "Ok",
 					});
 				} else {
 					Swal.fire({
 						title: "Failed",
-						text: "Your Blog is not added, please try again",
+						text: "Failed To Update, please try again",
 						icon: "warning",
 						confirmButtonText: "Ok",
 					});
@@ -58,19 +58,31 @@ const AddBlog = () => {
 
 	return (
 		<div>
-			<h1 className="text-4xl font-semibold text-accent mt-8 text-center">
-				Your Awsome Blog is Just a Second Away
+			<h1 className="text-xl font-semibold text-accent bg-amber-800 mt-8 text-center w-1/2 mx-auto rounded-4xl">
+				Update Your Blog
 			</h1>
-			<h3 className="text-xl font-medium text-center">
-				Please Post Your Blog Below:
-			</h3>
+			{/* current blkogs preview jin a card */}
+			<div className="card card-dash bg-accent/20  mt-4">
+				<h3 className="font-bold text-center text-fuchsia-900">
+					Your Current Blog Preview
+				</h3>
+				<div className="card-body">
+					<h2 className="card-title">{title}</h2>
+					<p>{shortDescription}</p>
+					<p className="text-lg font-bold text-black/40">
+						Category: {category}
+					</p>
+				</div>
+			</div>
+
+			{/* Update form for blog update */}
 			<form
-				onSubmit={addBlogHandler}
+				onSubmit={updateBlogHandler}
 				className="w-11/12  mx-auto mt-12 bg-accent/10 mb-8 rounded-2xl"
 			>
 				<div className=" flex justify-center">
 					<fieldset className="fieldset flex flex-col justify-center items-center rounded-box w-9/12 border-t-2 p-4 ">
-						<legend className="fieldset-legend">Post Your Blog</legend>
+						<legend className="fieldset-legend text-xl">Update Here</legend>
 
 						<div className="form-control w-full ">
 							<label className="label">Blog Title</label>
@@ -79,6 +91,8 @@ const AddBlog = () => {
 								className="input w-full"
 								placeholder="Blog Title"
 								name="blogTitle"
+								value={title}
+								onChange={(e) => setTitle(e.target.value)}
 							/>
 						</div>
 						<div className="form-control w-full">
@@ -88,6 +102,8 @@ const AddBlog = () => {
 								className="input w-full"
 								placeholder="Please Give Image URL"
 								name="imageURL"
+								value={image}
+								onChange={(e) => setImage(e.target.value)}
 							/>
 						</div>
 
@@ -97,6 +113,8 @@ const AddBlog = () => {
 								defaultValue="Pick a Category"
 								className="select w-full  justify-center"
 								name="category"
+								value={category}
+								onChange={(e) => setCategory(e.target.value)}
 							>
 								<option disabled={true}>Pick a Category</option>
 								<option>Technology</option>
@@ -112,6 +130,8 @@ const AddBlog = () => {
 								placeholder="Write a short description..."
 								className="textarea w-full"
 								name="shortDescription"
+								value={shortDescription}
+								onChange={(e) => setShortDescription(e.target.value)}
 							></textarea>
 						</div>
 						<div className="form-control w-full">
@@ -120,6 +140,8 @@ const AddBlog = () => {
 								placeholder="Write your Blog..."
 								className="textarea w-full h-56"
 								name="blogPost"
+								value={blogPost}
+								onChange={(e) => setBlogPost(e.target.value)}
 							></textarea>
 						</div>
 						<div className="form-control w-full mt-8">
@@ -127,7 +149,7 @@ const AddBlog = () => {
 							<input
 								type="text"
 								className="input w-full text-red-800 bg-amber-600/20"
-								defaultValue={userName}
+								value={userName}
 								readOnly
 							/>
 						</div>
@@ -137,28 +159,18 @@ const AddBlog = () => {
 							<input
 								type="text"
 								className="input w-full text-red-800 bg-amber-600/20"
-								defaultValue={email}
+								value={email}
 								readOnly
 							/>
 						</div>
 					</fieldset>
-					{/* <label className="label">User Name</label>
-						<input
-							type="text"
-							className="input"
-							value={user.displayName}
-							readOnly
-						/>
-
-						<label className="label">Email</label>
-						<input type="text" className="input" value={user.email} readOnly /> */}
 				</div>
 				<div className="flex justify-center py-8 mx-5">
-					<button className="btn w-9/12">Submit</button>
+					<button className="btn w-9/12">Update</button>
 				</div>
 			</form>
 		</div>
 	);
 };
 
-export default AddBlog;
+export default Update;

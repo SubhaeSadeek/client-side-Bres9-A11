@@ -17,10 +17,12 @@ const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
 	const [loading, setLoading] = useState(true);
 
+	// Auth operations
 	const createUser = (email, password) => {
 		setLoading(true);
 		return createUserWithEmailAndPassword(auth, email, password);
 	};
+
 	const signInUser = (email, password) => {
 		setLoading(true);
 		return signInWithEmailAndPassword(auth, email, password);
@@ -28,35 +30,31 @@ const AuthProvider = ({ children }) => {
 
 	const signOutUser = () => {
 		setLoading(true);
-		return signOut(auth);
+		return signOut(auth).finally(() => setLoading(false));
 	};
 
 	const googleSignIn = () => {
+		setLoading(true);
 		const provider = new GoogleAuthProvider();
-		signInWithPopup(auth, provider)
-			.then((resutl) => {
-				console.log(resutl.user);
-			})
-			.catch((error) => {
-				console.log("ERROR", error);
-			});
+		return signInWithPopup(auth, provider).finally(() => setLoading(false));
 	};
 
 	const userProfileInfo = (userName, image) => {
-		updateProfile(auth.currentUser, {
+		return updateProfile(auth.currentUser, {
 			displayName: userName,
 			photoURL: image,
 		});
 	};
+
+	// Auth state listener
 	useEffect(() => {
 		const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
 			setUser(currentUser);
 			setLoading(false);
 		});
-		return () => {
-			unSubscribe();
-		};
+		return () => unSubscribe();
 	}, []);
+
 	const authInfo = {
 		user,
 		loading,
@@ -68,11 +66,14 @@ const AuthProvider = ({ children }) => {
 	};
 
 	return (
-		<AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+		<AuthContext.Provider value={authInfo}>
+			{!loading && children}
+		</AuthContext.Provider>
 	);
 };
+
 AuthProvider.propTypes = {
-	children: PropTypes.object,
+	children: PropTypes.node.isRequired,
 };
 
 export default AuthProvider;

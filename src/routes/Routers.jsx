@@ -9,6 +9,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import MyBlogs from "../pages/MyBlogs";
 import Register from "../pages/Register";
+import Update from "../pages/Update";
 import WishList from "../pages/WishList";
 import PrivateRoute from "./PrivateRoute";
 
@@ -40,6 +41,16 @@ const Routers = createBrowserRouter([
 						<AddBlog></AddBlog>
 					</PrivateRoute>
 				),
+			},
+			{
+				path: "updateBlog/:id",
+				element: (
+					<PrivateRoute>
+						<Update></Update>
+					</PrivateRoute>
+				),
+				loader: ({ params }) =>
+					fetch(`http://localhost:5001/update-blog/${params.id}`),
 			},
 			{
 				path: "/featuredBlogs",

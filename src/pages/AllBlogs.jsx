@@ -1,13 +1,35 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import AllBlogCard from "../component/AllBlogCard";
+import { AuthContext } from "../provider/AuthProvider";
 import useTitle from "../utils/useTitle";
 
 const AllBlogs = () => {
 	useTitle("All Blogs");
 	const blogs = useLoaderData();
 	const [searchedBlogs, setSearchedBlogs] = useState(blogs);
+	const [wishlistBlog, setWishListBlog] = useState([]);
+	const { loading, user } = useContext(AuthContext);
+
+	useEffect(() => {
+		if (loading || !user?.email) return;
+
+		axios
+			.post("http://localhost:5001/get-wishlist/", { email: user?.email })
+			.then((res) => {
+				setWishListBlog(res.data || []);
+			})
+			.catch(console.error);
+	}, [loading, user]);
+	if (loading) {
+		return (
+			<div className="w-1/3 mx-auto flex justify-center">
+				<span className="loading loading-bars loading-lg"></span>
+			</div>
+		);
+	}
+
 	const handleSearchByTitle = (e) => {
 		e.preventDefault();
 		const searchByTitleText = e.target.searchByTitleText.value.trim();
@@ -55,7 +77,6 @@ const AllBlogs = () => {
 						<legend className="fieldset-legend text-xl text-accent">
 							Search by Title
 						</legend>
-
 						<input
 							type="text"
 							className="input w-full"
@@ -78,7 +99,14 @@ const AllBlogs = () => {
 			) : (
 				<>
 					{searchedBlogs.map((blog, index) => (
-						<AllBlogCard key={blog._id} blog={blog} index={index}></AllBlogCard>
+						<AllBlogCard
+							key={blog._id}
+							blog={blog}
+							index={index}
+							wishlistBlog={wishlistBlog}
+							user={user}
+							loading={loading}
+						></AllBlogCard>
 					))}
 				</>
 			)}

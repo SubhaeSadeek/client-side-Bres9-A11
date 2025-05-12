@@ -1,12 +1,67 @@
-import { useContext } from "react";
+import axios from "axios";
+import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
+import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
 
-const AllBlogCard = ({ blog, index }) => {
-	const { title, image, shortDescription, category, userName, email, _id } =
-		blog;
+const AllBlogCard = ({ blog, index, wishlistBlog }) => {
+	const [btnDisable, setBtnDisable] = useState(false);
+
+	const {
+		title,
+		image,
+		shortDescription,
+		blogPost,
+		category,
+		userName,
+		email,
+		_id,
+	} = blog;
+
 	const { user } = useContext(AuthContext);
 
+	// const wishlistUserInfo = { email: user.email, id: _id };
+	const wishlistCheck =
+		Array.isArray(wishlistBlog) &&
+		user?.email &&
+		wishlistBlog.some(
+			(blog) => blog.blogId === _id && blog.wishListUserEmail === user.email
+		);
+
+	const addWishlistHandler = () => {
+		const wishListBlog = {
+			title,
+			image,
+			category,
+			shortDescription,
+			blogPost,
+			blogger: userName,
+			bloggerEmail: email,
+			blogId: _id,
+			wishListUser: user.displayName,
+			wishListUserEmail: user.email,
+			wishlistAddedAt: new Date(),
+		};
+		axios.post("http://localhost:5001/wishlist", wishListBlog).then((res) => {
+			if (res.data.insertedId) {
+				Swal.fire({
+					title: "Success",
+					text: "Wish List added to your Profile",
+					icon: "success",
+					confirmButtonText: "Ok",
+				});
+			} else {
+				Swal.fire({
+					title: "Alert",
+					text: "Oppss! wish list did not added!",
+					icon: "error",
+					confirmButtonText: "Ok",
+					confirmButtonColor: "red",
+				});
+			}
+		});
+		setBtnDisable(true);
+	};
 	return (
 		<div>
 			<div className="hero bg-base-200 my-8">
@@ -27,11 +82,22 @@ const AllBlogCard = ({ blog, index }) => {
 								<button className="btn btn-accent">Details</button>
 							</NavLink>
 
-							<button className="btn btn-primary" disabled={!user}>
-								Wishlist
-							</button>
+							{user?.email === email ? (
+								<></>
+							) : (
+								<button
+									onClick={addWishlistHandler}
+									className="btn btn-primary"
+									disabled={!user || btnDisable || wishlistCheck}
+								>
+									Wishlist
+								</button>
+							)}
+
+							{wishlistCheck && (
+								<div className="badge badge-secondary">Added to Wishlist</div>
+							)}
 						</div>
-						<div className="flex justify-around bg"></div>
 					</div>
 				</div>
 			</div>
