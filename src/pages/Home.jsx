@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import HomeCard from "../component/HomeCard";
+import Subscribe from "../component/Subscribe";
 
 const Home = () => {
 	return (
@@ -26,6 +27,7 @@ const Home = () => {
 				{/* home card */}
 			</div>
 			<HomeCard></HomeCard>
+			<Subscribe></Subscribe>
 		</>
 	);
 };
