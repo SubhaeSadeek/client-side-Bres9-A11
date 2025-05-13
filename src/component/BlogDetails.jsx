@@ -1,11 +1,70 @@
-import { useContext } from "react";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 import { NavLink, useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 import { AuthContext } from "../provider/AuthProvider";
 
 const BlogDetails = () => {
 	const blog = useLoaderData();
+	const [showComments, setShowComments] = useState([]);
 	const { title, image, blogPost, category, userName, email, _id } = blog;
 	const { user } = useContext(AuthContext);
+	// comment data fetche and display comments
+	useEffect(() => {
+		if (!_id) return;
+		axios
+			.get(`http://localhost:5001/show-comments/${_id}`)
+			.then((res) => {
+				const sortedComments = res.data.sort(
+					(a, b) => new Date(b.commentAt) - new Date(a.commentAt)
+				);
+				setShowComments(sortedComments);
+			})
+			.catch((err) => {
+				console.error("Failed to load comments:", err);
+			});
+	}, [_id]);
+	console.log(showComments);
+	// post comment handler
+	const handleComment = (e) => {
+		e.preventDefault();
+
+		const comment = e.target.comment.value;
+		const commentor = user?.displayName;
+		const commentorImage = user?.photoURL;
+		const commentorEmail = user?.email;
+		const commentForBlogId = _id;
+		const commentBlogTitle = title;
+		const commentAt = new Date();
+		const commentData = {
+			comment,
+			commentor,
+			commentorEmail,
+			commentorImage,
+			commentForBlogId,
+			commentBlogTitle,
+			commentAt,
+		};
+
+		axios.post("http://localhost:5001/comment", commentData).then((res) => {
+			if (res.data.insertedId) {
+				Swal.fire({
+					title: "Success!",
+					text: "Your comment is added successfully",
+					icon: "success",
+					confirmButtonText: "Ok",
+				});
+			} else {
+				Swal.fire({
+					title: "Failed",
+					text: "Your Comment is not added, please try again",
+					icon: "warning",
+					confirmButtonText: "Ok",
+				});
+			}
+		});
+		e.target.reset();
+	};
 
 	return (
 		<div>
@@ -48,6 +107,54 @@ const BlogDetails = () => {
 							Hello {userName}! Update Your Blog
 						</button>
 					</NavLink>
+				)}
+			</div>
+			{/* comment section */}
+			<h3 className="text-xl font-semibold border-b-2">Comment section</h3>
+			{/* all comments are shown for this id */}
+			{showComments.map((comment) => (
+				<div
+					className="card bg-base-100 w-2/3 mx-auto shadow-sm "
+					key={comment._id}
+				>
+					<div className="card-body">
+						<div className="flex gap-2">
+							<img src={comment.commentorImage} className="w-16 rounded-full" />
+							<h2 className="card-title">{comment.commentor}</h2>
+						</div>
+						<p className="text-lg text-fuchsia-900">{comment.comment}</p>
+						<p className="text-xs text-fuchsia-900">{comment.commentAt}</p>
+					</div>
+				</div>
+			))}
+
+			<div>
+				{user ? (
+					<form onSubmit={handleComment}>
+						<div className="form-control w-2/3 mx-auto ">
+							<label className="label">Put your comment here</label>
+							<textarea
+								placeholder="Your comments..."
+								className="textarea w-full border-2 border-amber-700 rounded-b-md"
+								name="comment"
+							></textarea>
+						</div>
+						<div className=" w-1/6 flex justify-center mx-auto p-2 rounded-md bg-accent cursor-pointer my-4">
+							<input
+								type="submit"
+								value="Submit Comment"
+								className="cursor-pointer"
+							/>
+						</div>
+					</form>
+				) : (
+					<p className="text-center text-red-500">
+						Please{" "}
+						<NavLink to="/login" className="underline text-blue-700">
+							log in
+						</NavLink>{" "}
+						to comment.
+					</p>
 				)}
 			</div>
 		</div>
