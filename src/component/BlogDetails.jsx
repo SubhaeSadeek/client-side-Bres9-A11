@@ -139,7 +139,7 @@ const BlogDetails = () => {
 								name="comment"
 							></textarea>
 						</div>
-						<div className=" w-1/6 flex justify-center mx-auto p-2 rounded-md bg-accent cursor-pointer my-4">
+						<div className=" w-1/6 flex justify-center mx-auto p-2 rounded-md bg-accent cursor-pointer my-4 hover:bg-blue-400">
 							<input
 								type="submit"
 								value="Submit Comment"
