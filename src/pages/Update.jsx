@@ -34,7 +34,10 @@ const Update = () => {
 		};
 
 		axios
-			.patch(`http://localhost:5001/update-blog/${_id}`, updatedBlogPost)
+			.patch(
+				`https://hikmah-server.vercel.app/update-blog/${_id}`,
+				updatedBlogPost
+			)
 			.then((res) => {
 				if (res.data.modifiedCount > 0) {
 					Swal.fire({

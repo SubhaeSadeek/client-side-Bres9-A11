@@ -42,24 +42,26 @@ const AllBlogCard = ({ blog, index, wishlistBlog }) => {
 			wishListUserEmail: user.email,
 			wishlistAddedAt: new Date(),
 		};
-		axios.post("http://localhost:5001/wishlist", wishListBlog).then((res) => {
-			if (res.data.insertedId) {
-				Swal.fire({
-					title: "Success",
-					text: "Wish List added to your Profile",
-					icon: "success",
-					confirmButtonText: "Ok",
-				});
-			} else {
-				Swal.fire({
-					title: "Alert",
-					text: "Oppss! wish list did not added!",
-					icon: "error",
-					confirmButtonText: "Ok",
-					confirmButtonColor: "red",
-				});
-			}
-		});
+		axios
+			.post("https://hikmah-server.vercel.app/wishlist", wishListBlog)
+			.then((res) => {
+				if (res.data.insertedId) {
+					Swal.fire({
+						title: "Success",
+						text: "Wish List added to your Profile",
+						icon: "success",
+						confirmButtonText: "Ok",
+					});
+				} else {
+					Swal.fire({
+						title: "Alert",
+						text: "Oppss! wish list did not added!",
+						icon: "error",
+						confirmButtonText: "Ok",
+						confirmButtonColor: "red",
+					});
+				}
+			});
 		setBtnDisable(true);
 	};
 	return (

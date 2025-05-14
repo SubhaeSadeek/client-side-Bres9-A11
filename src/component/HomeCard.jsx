@@ -14,7 +14,7 @@ const HomeCard = () => {
 			setLoading(true);
 			try {
 				const res = await fetch(
-					`http://localhost:5001/home-card?page=${page}&limit=${LIMIT}`
+					`https://hikmah-server.vercel.app/home-card?page=${page}&limit=${LIMIT}`
 				);
 				if (!res.ok) throw new Error("Failed to fetch posts");
 				const data = await res.json();

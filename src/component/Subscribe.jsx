@@ -7,7 +7,7 @@ const Subscribe = () => {
 		const subscribeEmail = e.target.email.value;
 
 		axios
-			.post("http://localhost:5001/subscribe", { subscribeEmail })
+			.post("https://hikmah-server.vercel.app/subscribe", { subscribeEmail })
 			.then((res) => {
 				if (res.data.insertedId) {
 					Swal.fire({

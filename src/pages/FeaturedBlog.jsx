@@ -6,7 +6,7 @@ const FeaturedBlog = () => {
 	const [featuredBlogs, setFeatuedBlogs] = useState([]);
 	useEffect(() => {
 		axios
-			.get("http://localhost:5001/featured")
+			.get("https://hikmah-server.vercel.app/featured")
 			.then((res) => setFeatuedBlogs(res.data));
 	}, []);
 	return (

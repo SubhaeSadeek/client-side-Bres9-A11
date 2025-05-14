@@ -13,7 +13,7 @@ const BlogDetails = () => {
 	useEffect(() => {
 		if (!_id) return;
 		axios
-			.get(`http://localhost:5001/show-comments/${_id}`)
+			.get(`https://hikmah-server.vercel.app/show-comments/${_id}`)
 			.then((res) => {
 				const sortedComments = res.data.sort(
 					(a, b) => new Date(b.commentAt) - new Date(a.commentAt)
@@ -46,23 +46,25 @@ const BlogDetails = () => {
 			commentAt,
 		};
 
-		axios.post("http://localhost:5001/comment", commentData).then((res) => {
-			if (res.data.insertedId) {
-				Swal.fire({
-					title: "Success!",
-					text: "Your comment is added successfully",
-					icon: "success",
-					confirmButtonText: "Ok",
-				});
-			} else {
-				Swal.fire({
-					title: "Failed",
-					text: "Your Comment is not added, please try again",
-					icon: "warning",
-					confirmButtonText: "Ok",
-				});
-			}
-		});
+		axios
+			.post("https://hikmah-server.vercel.app/comment", commentData)
+			.then((res) => {
+				if (res.data.insertedId) {
+					Swal.fire({
+						title: "Success!",
+						text: "Your comment is added successfully",
+						icon: "success",
+						confirmButtonText: "Ok",
+					});
+				} else {
+					Swal.fire({
+						title: "Failed",
+						text: "Your Comment is not added, please try again",
+						icon: "warning",
+						confirmButtonText: "Ok",
+					});
+				}
+			});
 		e.target.reset();
 	};
 

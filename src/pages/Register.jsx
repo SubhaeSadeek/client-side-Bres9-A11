@@ -69,7 +69,7 @@ const Register = () => {
 						headers: { "content-type": "application/json" },
 						body: JSON.stringify(userData),
 					}); */
-					axios.post("http://localhost:5001/user", userData);
+					axios.post("https://hikmah-server.vercel.app/user", userData);
 					userProfileInfo(displayName, photoURL);
 					/* console.log(userData);
 					console.log(result); */

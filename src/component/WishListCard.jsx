@@ -18,7 +18,7 @@ const WishListCard = ({ wishlistB, wishlistBlog, setWishListBlog }) => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				axios
-					.delete(`http://localhost:5001/wishlist/${id}`)
+					.delete(`https://hikmah-server.vercel.app/wishlist/${id}`)
 
 					.then((res) => {
 						if (res.data.deletedCount) {

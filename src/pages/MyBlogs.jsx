@@ -9,7 +9,7 @@ const MyBlogs = () => {
 	useEffect(() => {
 		if (user?.email) {
 			axios
-				.post("http://localhost:5001/myblogs", { email: user.email })
+				.post("https://hikmah-server.vercel.app/myblogs", { email: user.email })
 				.then((res) => {
 					setMyBlogs(res.data);
 				})

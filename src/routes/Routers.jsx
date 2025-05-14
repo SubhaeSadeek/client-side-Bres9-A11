@@ -26,13 +26,13 @@ const Routers = createBrowserRouter([
 			{
 				path: "/allBlogs",
 				element: <AllBlogs></AllBlogs>,
-				loader: () => fetch("http://localhost:5001/allBlogs"),
+				loader: () => fetch("https://hikmah-server.vercel.app/allBlogs"),
 			},
 			{
 				path: "/blogDetails/:id",
 				element: <BlogDetails></BlogDetails>,
 				loader: ({ params }) =>
-					fetch(`http://localhost:5001/blogDetails/${params.id}`),
+					fetch(`https://hikmah-server.vercel.app/blogDetails/${params.id}`),
 			},
 			{
 				path: "/addBlogs",
@@ -50,7 +50,7 @@ const Routers = createBrowserRouter([
 					</PrivateRoute>
 				),
 				loader: ({ params }) =>
-					fetch(`http://localhost:5001/update-blog/${params.id}`),
+					fetch(`https://hikmah-server.vercel.app/update-blog/${params.id}`),
 			},
 			{
 				path: "/featuredBlogs",

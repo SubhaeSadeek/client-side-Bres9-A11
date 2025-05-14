@@ -33,7 +33,7 @@ const AddBlog = () => {
 			body: JSON.stringify(addedBlogPost),
 		}) */
 		axios
-			.post("http://localhost:5001/addBlog", addedBlogPost)
+			.post("https://hikmah-server.vercel.app/addBlog", addedBlogPost)
 
 			.then((data) => {
 				if (data.data.insertedId) {

@@ -1,12 +1,39 @@
-# React + Vite
+# Assignment 11 for (Assignment Category: 5) Battlefield
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[live link for the project...](https://hikmah-blog.firebaseapp.com/)
 
-Currently, two official plugins are available:
+## What you expect in this document
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Attach Live Website Link
+- List of MongoDb Node, Express, server API Fundamental concepts used in the project
+- How to Make a server, using express, middleware, API to connect DB
 
-## Expanding the ESLint configuration
+### 1. Project Name
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+This project is for the requirement to fulfill the task given to build an application using _Node, express, MongoDb_ **_WE CAN NAME IT LEARNING Serverside and Database connection with JWT and AXIOS._**
+
+### 2. Fundamental concepts used in the project
+
+<ol>
+<li>Google Authetication</li>
+<li>React Routes</li>
+<li>Context Api</li>
+<li>Creating a server</li>
+<li>Creating Express and Cors</li>
+<li>Using MongoDB driver for Node, making API to connect ot data base</li>
+<li>Firebase/vercel Hosting</li>
+</ol>
+
+### 3. Implementing server and mongodb Driver
+
+I have used **\_Express and mongoDB driver for node\_** to manage Database and APIs.
+
+### 4. Five features of your project
+
+<ol>
+<li>Sendind data from client to DB via Server API</li>
+<li>Learning creating server, APi, middleware</li>
+<li>Learning Express and cors</li>
+<li>Learning MongoDB driver, uri, fetching data from derver</li>
+<li>Learning CRUD operation - GET, POST, PATCH, PUT, DELETE</li>
+</ol>

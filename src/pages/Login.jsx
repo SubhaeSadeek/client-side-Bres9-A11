@@ -22,7 +22,7 @@ const Login = () => {
 				const user = { email: result.user.email };
 				console.log(user);
 				axios
-					.post("http://localhost:5001/jwt", user, {
+					.post("https://hikmah-server.vercel.app/jwt", user, {
 						withCredentials: true,
 					})
 					.then((data) => {

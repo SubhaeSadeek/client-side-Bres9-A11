@@ -17,7 +17,7 @@ const MyBlogCard = ({ myBlog, myBlogs, setMyBlogs }) => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				axios
-					.delete(`http://localhost:5001/my-blog/${id}`)
+					.delete(`https://hikmah-server.vercel.app/my-blog/${id}`)
 
 					.then((res) => {
 						if (res.data.deletedCount) {

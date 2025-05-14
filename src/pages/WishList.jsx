@@ -10,7 +10,9 @@ const WishList = () => {
 	useEffect(() => {
 		if (user?.email) {
 			axios
-				.post("http://localhost:5001/get-wishlist/", { email: user.email })
+				.post("https://hikmah-server.vercel.app/get-wishlist/", {
+					email: user.email,
+				})
 				.then((res) => {
 					setWishListBlog(res.data || []);
 				})

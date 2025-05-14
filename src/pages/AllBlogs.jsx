@@ -16,7 +16,9 @@ const AllBlogs = () => {
 		if (loading || !user?.email) return;
 
 		axios
-			.post("http://localhost:5001/get-wishlist/", { email: user?.email })
+			.post("https://hikmah-server.vercel.app/get-wishlist/", {
+				email: user?.email,
+			})
 			.then((res) => {
 				setWishListBlog(res.data || []);
 			})
@@ -35,7 +37,9 @@ const AllBlogs = () => {
 		const searchByTitleText = e.target.searchByTitleText.value.trim();
 		console.log(searchByTitleText);
 		axios
-			.get(`http://localhost:5001/blogs-by-search?title=${searchByTitleText}`)
+			.get(
+				`https://hikmah-server.vercel.app/blogs-by-search?title=${searchByTitleText}`
+			)
 			.then((res) => setSearchedBlogs(res.data));
 		e.target.reset();
 	};
@@ -44,7 +48,9 @@ const AllBlogs = () => {
 		const searchByCategory = e.target.value;
 		console.log(searchByCategory);
 		axios
-			.get(`http://localhost:5001/blogs-by-search?category=${searchByCategory}`)
+			.get(
+				`https://hikmah-server.vercel.app/blogs-by-search?category=${searchByCategory}`
+			)
 			.then((res) => setSearchedBlogs(res.data));
 	};
 
@@ -84,7 +90,7 @@ const AllBlogs = () => {
 							name="searchByTitleText"
 						/>
 					</fieldset>
-					<button className="btn btn-sm bg-accent rounded-sm absolute top-28 right-8 z-10">
+					<button className="btn btn-sm bg-accent rounded-sm absolute top-33 right-10 z-10">
 						Search
 					</button>
 				</form>
